@@ -32,11 +32,28 @@
       font-size: 14px;
       letter-spacing: 2px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     button:hover {
       background: white;
       color: black;
+    }
+
+    /* ✨ Active glowing state */
+    button.active {
+      color: #00ffcc;
+      border-color: #00ffcc;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 5px #00ffcc;
+      }
+      to {
+        box-shadow: 0 0 20px #00ffcc;
+      }
     }
   </style>
 </head>
@@ -55,7 +72,12 @@
 
     button.addEventListener("click", function () {
       audio.play();
-      button.style.display = "none";
+
+      // Change button text
+      button.innerText = "SOUND ON";
+
+      // Add glowing animation
+      button.classList.add("active");
     });
   </script>
 </body>
