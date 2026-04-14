@@ -35,7 +35,8 @@
       transition: all 0.3s ease;
     }
 
-    button:hover {
+    /* Hover ONLY when NOT active */
+    button:not(.active):hover {
       background: white;
       color: black;
     }
@@ -44,6 +45,7 @@
     button.active {
       color: #00ffff;
       border-color: #00ffff;
+      cursor: default; /* 👈 removes "clickable" cursor */
       animation: glowExtreme 0.8s infinite alternate;
     }
 
@@ -81,10 +83,7 @@
     button.addEventListener("click", function () {
       audio.play();
 
-      // Change text
       button.innerText = "SOUND ON";
-
-      // Activate extreme glow
       button.classList.add("active");
     });
   </script>
