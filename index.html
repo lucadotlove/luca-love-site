@@ -40,19 +40,27 @@
       color: black;
     }
 
-    /* ✨ Active glowing state */
+    /* 🚨 EXTREME ACTIVE STATE */
     button.active {
-      color: #00ffcc;
-      border-color: #00ffcc;
-      animation: glow 1.5s infinite alternate;
+      color: #00ffff;
+      border-color: #00ffff;
+      animation: glowExtreme 0.8s infinite alternate;
     }
 
-    @keyframes glow {
-      from {
-        box-shadow: 0 0 5px #00ffcc;
+    @keyframes glowExtreme {
+      0% {
+        box-shadow:
+          0 0 5px #00ffff,
+          0 0 10px #00ffff,
+          0 0 20px #00ffff;
+        transform: translateX(-50%) scale(1);
       }
-      to {
-        box-shadow: 0 0 20px #00ffcc;
+      100% {
+        box-shadow:
+          0 0 20px #00ffff,
+          0 0 40px #00ffff,
+          0 0 80px #00ffff;
+        transform: translateX(-50%) scale(1.08);
       }
     }
   </style>
@@ -73,10 +81,10 @@
     button.addEventListener("click", function () {
       audio.play();
 
-      // Change button text
+      // Change text
       button.innerText = "SOUND ON";
 
-      // Add glowing animation
+      // Activate extreme glow
       button.classList.add("active");
     });
   </script>
