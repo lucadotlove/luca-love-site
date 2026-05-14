@@ -13,6 +13,7 @@
       height: 100vh;
       overflow: hidden;
       position: relative;
+      font-family: Arial, sans-serif;
     }
 
     img {
@@ -20,33 +21,45 @@
       max-height: 90%;
     }
 
-    button {
+    .top-buttons {
       position: absolute;
       top: 40px;
       left: 50%;
       transform: translateX(-50%);
-      padding: 12px 24px;
-      background: transparent;
+      display: flex;
+      gap: 12px;
+    }
+
+    .top-buttons button,
+    .top-buttons a {
+      text-decoration: none;
       color: white;
-      border: 1px solid white;
-      font-size: 14px;
+      font-size: 12px;
       letter-spacing: 2px;
+      border: 1px solid white;
+      padding: 8px 16px;
+      background: transparent;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    /* Hover ONLY when NOT active */
-    button:not(.active):hover {
+    .top-buttons button:hover,
+    .top-buttons a:hover {
       background: white;
       color: black;
     }
 
-    /* 🚨 EXTREME ACTIVE STATE */
-    button.active {
+    /* SOUND ACTIVE STATE */
+    .top-buttons button.active {
       color: #00ffff;
       border-color: #00ffff;
-      cursor: default; /* 👈 removes "clickable" cursor */
+      cursor: default;
       animation: glowExtreme 0.8s infinite alternate;
+    }
+
+    .top-buttons button.active:hover {
+      background: transparent;
+      color: #00ffff;
     }
 
     @keyframes glowExtreme {
@@ -55,29 +68,44 @@
           0 0 5px #00ffff,
           0 0 10px #00ffff,
           0 0 20px #00ffff;
-        transform: translateX(-50%) scale(1);
       }
+
       100% {
         box-shadow:
           0 0 20px #00ffff,
           0 0 40px #00ffff,
           0 0 80px #00ffff;
-        transform: translateX(-50%) scale(1.08);
       }
     }
   </style>
 </head>
 <body>
+
   <img src="luca.gif" alt="luca gif">
 
-  <button id="learn-btn">LEARN MORE</button>
+  <div class="top-buttons">
+
+    <!-- SOUND BUTTON -->
+    <button id="sound-btn">LEARN MORE</button>
+
+    <!-- LINKEDIN -->
+    <a href="https://www.linkedin.com/in/lucaboschin/" target="_blank">
+      LINKEDIN
+    </a>
+
+    <!-- ICP -->
+    <a href="https://icp.live/" target="_blank">
+      THE VALUE OF LIFE
+    </a>
+
+  </div>
 
   <audio id="bg-audio" loop>
     <source src="sound.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const button = document.getElementById("learn-btn");
+    const button = document.getElementById("sound-btn");
     const audio = document.getElementById("bg-audio");
 
     button.addEventListener("click", function () {
@@ -87,5 +115,6 @@
       button.classList.add("active");
     });
   </script>
+
 </body>
 </html>
