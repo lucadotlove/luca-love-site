@@ -3,6 +3,7 @@
 <head>
   <title>luca.love</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
@@ -28,6 +29,7 @@
       transform: translateX(-50%);
       display: flex;
       gap: 12px;
+      z-index: 10;
     }
 
     .top-buttons button,
@@ -77,8 +79,54 @@
           0 0 80px #00ffff;
       }
     }
+
+    /* POPUP */
+    .popup {
+      display: none;
+      position: absolute;
+      top: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 1px solid white;
+      padding: 20px;
+      z-index: 20;
+    }
+
+    .popup input,
+    .popup textarea {
+      width: 100%;
+      margin-bottom: 12px;
+      background: black;
+      border: 1px solid white;
+      color: white;
+      padding: 10px;
+      font-size: 12px;
+      box-sizing: border-box;
+    }
+
+    .popup textarea {
+      height: 120px;
+      resize: none;
+    }
+
+    .popup button {
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      cursor: pointer;
+    }
+
+    .popup button:hover {
+      background: white;
+      color: black;
+    }
   </style>
 </head>
+
 <body>
 
   <img src="luca.gif" alt="luca gif">
@@ -88,31 +136,68 @@
     <!-- SOUND BUTTON -->
     <button id="sound-btn">LEARN MORE</button>
 
-    <!-- LINKEDIN -->
-    <a href="https://www.linkedin.com/in/lucaboschin/" target="_blank">
-      LINKEDIN
-    </a>
-
     <!-- ICP -->
     <a href="https://icp.live/" target="_blank">
       THE VALUE OF LIFE
     </a>
 
+    <!-- EMAIL -->
+    <button id="email-btn">EMAIL ME</button>
+
   </div>
 
+  <!-- EMAIL POPUP -->
+  <div class="popup" id="email-popup">
+
+    <form action="https://formsubmit.co/luca@luca.love" method="POST">
+
+      <input type="text" name="name" placeholder="YOUR NAME" required>
+
+      <input type="email" name="email" placeholder="YOUR EMAIL" required>
+
+      <textarea name="message" placeholder="YOUR MESSAGE" required></textarea>
+
+      <!-- Disable captcha -->
+      <input type="hidden" name="_captcha" value="false">
+
+      <!-- Optional success page -->
+      <input type="hidden" name="_next" value="https://luca.love">
+
+      <button type="submit">SEND MESSAGE</button>
+
+    </form>
+
+  </div>
+
+  <!-- AUDIO -->
   <audio id="bg-audio" loop>
     <source src="sound.mp3" type="audio/mpeg">
   </audio>
 
   <script>
-    const button = document.getElementById("sound-btn");
+    // SOUND BUTTON
+    const soundButton = document.getElementById("sound-btn");
     const audio = document.getElementById("bg-audio");
 
-    button.addEventListener("click", function () {
+    soundButton.addEventListener("click", function () {
       audio.play();
 
-      button.innerText = "SOUND ON";
-      button.classList.add("active");
+      soundButton.innerText = "SOUND ON";
+      soundButton.classList.add("active");
+    });
+
+    // EMAIL POPUP
+    const emailButton = document.getElementById("email-btn");
+    const popup = document.getElementById("email-popup");
+
+    emailButton.addEventListener("click", function () {
+
+      if (popup.style.display === "block") {
+        popup.style.display = "none";
+      } else {
+        popup.style.display = "block";
+      }
+
     });
   </script>
 
