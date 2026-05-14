@@ -80,15 +80,15 @@
       }
     }
 
-    /* POPUP */
+    /* EMAIL POPUP */
     .popup {
       display: none;
       position: absolute;
       top: 120px;
       left: 50%;
       transform: translateX(-50%);
-      width: 320px;
-      background: rgba(0, 0, 0, 0.95);
+      width: 340px;
+      background: rgba(0, 0, 0, 0.96);
       border: 1px solid white;
       padding: 20px;
       z-index: 20;
@@ -104,6 +104,7 @@
       padding: 10px;
       font-size: 12px;
       box-sizing: border-box;
+      outline: none;
     }
 
     .popup textarea {
@@ -118,12 +119,23 @@
       border: 1px solid white;
       color: white;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     .popup button:hover {
       background: white;
       color: black;
     }
+
+    .success-message {
+      display: none;
+      color: #00ffff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
   </style>
 </head>
 
@@ -149,23 +161,17 @@
   <!-- EMAIL POPUP -->
   <div class="popup" id="email-popup">
 
-    <form action="https://formsubmit.co/luca@luca.love" method="POST">
+    <input type="text" id="name" placeholder="YOUR NAME">
 
-      <input type="text" name="name" placeholder="YOUR NAME" required>
+    <input type="email" id="email" placeholder="YOUR EMAIL">
 
-      <input type="email" name="email" placeholder="YOUR EMAIL" required>
+    <textarea id="message" placeholder="YOUR MESSAGE"></textarea>
 
-      <textarea name="message" placeholder="YOUR MESSAGE" required></textarea>
+    <button id="send-btn">SEND MESSAGE</button>
 
-      <!-- Disable captcha -->
-      <input type="hidden" name="_captcha" value="false">
-
-      <!-- Optional success page -->
-      <input type="hidden" name="_next" value="https://luca.love">
-
-      <button type="submit">SEND MESSAGE</button>
-
-    </form>
+    <div class="success-message" id="success-message">
+      MESSAGE SENT
+    </div>
 
   </div>
 
@@ -175,15 +181,19 @@
   </audio>
 
   <script>
+
     // SOUND BUTTON
     const soundButton = document.getElementById("sound-btn");
     const audio = document.getElementById("bg-audio");
 
     soundButton.addEventListener("click", function () {
+
       audio.play();
 
       soundButton.innerText = "SOUND ON";
+
       soundButton.classList.add("active");
+
     });
 
     // EMAIL POPUP
@@ -193,12 +203,55 @@
     emailButton.addEventListener("click", function () {
 
       if (popup.style.display === "block") {
+
         popup.style.display = "none";
+
       } else {
+
         popup.style.display = "block";
+
       }
 
     });
+
+    // SEND EMAIL
+    document.getElementById("send-btn").addEventListener("click", async function () {
+
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value
+      };
+
+      try {
+
+        await fetch("https://script.google.com/macros/s/AKfycbznMNA5GOcB2OnMdEy-Z1SPDP0y2wROXwlK8eX0DexVmNYzRmmuKIRUH6NnmaCf5xHqZA/exec", {
+          method: "POST",
+          body: JSON.stringify(data)
+        });
+
+        document.getElementById("success-message").style.display = "block";
+
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("message").value = "";
+
+        setTimeout(() => {
+
+          document.getElementById("success-message").style.display = "none";
+
+          popup.style.display = "none";
+
+        }, 2000);
+
+      } catch (error) {
+
+        alert("ERROR SENDING MESSAGE");
+
+      }
+
+    });
+
   </script>
 
 </body>
