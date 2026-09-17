@@ -183,17 +183,21 @@
       THE VALUE OF LIFE
     </a>
 
+    <a href="https://tassaduscita.it/" target="_blank">
+      VIVA L'ITAGLIA
+    </a>
+
     <button id="email-btn">EMAIL ME</button>
 
   </div>
 
   <div class="popup" id="email-popup">
 
-    <input type="text" id="name" placeholder="YOUR NAME">
+    <input type="text" id="name" placeholder="YOUR NAME" required>
 
-    <input type="email" id="email" placeholder="YOUR EMAIL">
+    <input type="email" id="email" placeholder="YOUR EMAIL" required>
 
-    <textarea id="message" placeholder="YOUR MESSAGE"></textarea>
+    <textarea id="message" placeholder="YOUR MESSAGE" required></textarea>
 
     <button id="send-btn">
       <span id="send-text">SEND MESSAGE</span>
@@ -233,10 +237,22 @@
     const spinner = document.getElementById("spinner");
 
     sendButton.addEventListener("click", async function () {
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const messageInput = document.getElementById("message");
+      const requiredFields = [nameInput, emailInput, messageInput];
+
+      for (const field of requiredFields) {
+        if (!field.checkValidity()) {
+          field.reportValidity();
+          return;
+        }
+      }
+
       const data = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value
+        name: nameInput.value,
+        email: emailInput.value,
+        message: messageInput.value
       };
 
       sendButton.disabled = true;
@@ -255,9 +271,9 @@
 
         document.getElementById("success-message").style.display = "block";
 
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
-        document.getElementById("message").value = "";
+        nameInput.value = "";
+        emailInput.value = "";
+        messageInput.value = "";
 
         setTimeout(() => {
           document.getElementById("success-message").style.display = "none";
